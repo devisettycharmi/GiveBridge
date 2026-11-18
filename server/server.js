@@ -38,7 +38,10 @@ const defaultAllowedOrigins = [
   'http://127.0.0.1:5175',
 ];
 const allowedOrigins = new Set([
-  ...(process.env.CLIENT_URL ? [process.env.CLIENT_URL] : []),
+  ...(process.env.CLIENT_URL
+    ? process.env.CLIENT_URL.split(',').map((url) => url.trim().replace(/\/$/, ''))
+    : []),
+  'https://onrender.com',
   ...defaultAllowedOrigins,
 ]);
 
@@ -46,14 +49,14 @@ app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
 
-    const normalizedOrigin = origin.replace(/\/$/, '');
+    const normalizedOrigin = origin.trim().replace(/\/$/, '');
 
     if (allowedOrigins.has(normalizedOrigin)) return callback(null, true);
     if (/^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(normalizedOrigin)) {
       return callback(null, true);
     }
 
-    return callback(new Error('Origin is not allowed by CORS'));
+    return callback(new Error(`Origin ${normalizedOrigin} is not allowed by CORS`));
   },
   credentials: true,
 }));
