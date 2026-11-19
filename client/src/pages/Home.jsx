@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../services/api';
 
 const trustItems = ['Verified Users', 'Location-Based Matching', 'Transparent Tracking', 'Request Status Updates'];
@@ -58,8 +59,8 @@ function Home() {
               donors and receivers through a trusted, location-based community platform.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-primary" href="/register">Donate Now</a>
-              <a className="btn btn-secondary" href="/donations">Find Donations</a>
+              <Link className="btn btn-primary" to="/register">Donate Now</Link>
+              <Link className="btn btn-secondary" to="/donations">Find Donations</Link>
             </div>
           </div>
 
@@ -213,8 +214,8 @@ function Home() {
               <p>Your unused items could become someone’s much-needed resource.</p>
             </div>
             <div className="cta-actions">
-              <a className="btn btn-light" href="/register">Start Donating</a>
-              <a className="btn btn-secondary" href="/donations">Find Donations</a>
+              <Link className="btn btn-light" to="/register">Start Donating</Link>
+              <Link className="btn btn-secondary" to="/donations">Find Donations</Link>
             </div>
           </div>
         </div>
